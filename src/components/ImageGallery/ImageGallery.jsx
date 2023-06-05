@@ -1,10 +1,11 @@
-import PropTypes from 'prop-types';
-import { ImageGalleryItem } from 'components';
-import { List } from './ImageGallery.styled';
+// import PropTypes from 'prop-types';
+import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
+import { GalleryList } from './ImageGallery.styled';
 
 export const ImageGallery = ({ images, handleOpenModal }) => {
   return (
-    <List>
+    <GalleryList>
+      {console.log('hhh', { images })}
       {images.map(image => (
         <ImageGalleryItem
           key={image.id}
@@ -13,6 +14,6 @@ export const ImageGallery = ({ images, handleOpenModal }) => {
           onClick={() => handleOpenModal(image)}
         />
       ))}
-    </List>
+    </GalleryList>
   );
 };

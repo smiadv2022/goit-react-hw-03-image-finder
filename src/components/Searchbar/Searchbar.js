@@ -12,7 +12,7 @@ import {
 
 export class SearchbarForm extends React.Component {
   state = {
-    searchText: '13113',
+    searchText: '',
   };
   handleChange = e => {
     this.setState({ searchText: e.target.value.toLowerCase() });
@@ -25,6 +25,7 @@ export class SearchbarForm extends React.Component {
       return;
     }
     this.props.onSubmit(this.state.searchText);
+
     this.setState({ searchText: '' });
   };
   render() {
@@ -38,7 +39,7 @@ export class SearchbarForm extends React.Component {
             placeholder="Search images and
             photos"
             onChange={this.handleChange}
-            value={this.state.searchTextsearchText}
+            value={this.state.searchText}
           ></SearchFormInput>
           <SearchFormButton>
             <FcSearch />

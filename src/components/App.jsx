@@ -1,7 +1,10 @@
 import React from 'react';
-
+import { Button } from './Button/Button.styled';
+import { Container } from './Styles.styled';
 import { SearchbarForm } from './Searchbar/Searchbar';
+import { ImageGallery } from './ImageGallery/ImageGallery';
 import { fetchGallery } from './Api/ApiGallery';
+
 export class App extends React.Component {
   state = {
     search: '',
@@ -16,15 +19,16 @@ export class App extends React.Component {
   };
 
   async componentDidUpdate(_, prevState) {
-    const { searchText, page, perPage } = this.state;
+    const { search, page, perPage } = this.state;
 
     console.log('updcomp');
-    if (page !== prevState.page || searchText !== prevState.searchText) {
+    if (page !== prevState.page || search !== prevState.search) {
       this.setState({ isLoading: true });
       try {
-        const response = await fetchGallery({ searchText, page, perPage });
+        const response = await fetchGallery({ search, page, perPage });
+
         if (response.hits.length === 0) {
-          throw new Error(`Sorry, no photo from ${searchText}!`);
+          throw new Error(`Sorry, no photo from ${search}!`);
         }
         this.setState(prevState => ({
           images: [...prevState.images, ...response.hits],
@@ -38,16 +42,42 @@ export class App extends React.Component {
       }
     }
   }
+  handleLoadMore = () => {
+    this.setState(prevState => ({ page: prevState.page + 1 }));
+  };
+
+  handleOpenModal = image => {
+    const largeImage = { url: image.largeImageURL, alt: image.tags };
+    this.setState({ largeImage });
+  };
 
   handleSearch = searchText => {
     this.setState({ search: searchText });
+    this.setState({ images: [] });
     console.log('Appstate', searchText);
   };
   render() {
+    const {
+      images,
+
+      page,
+      totalPages,
+      isLoading,
+    } = this.state;
+    const showLoadMoreButton = images.length !== 0 && page < totalPages;
     return (
-      <div>
+      <Container>
         <SearchbarForm onSubmit={this.handleSearch} />
-      </div>
+        <ImageGallery
+          images={this.state.images}
+          handleOpenModal={this.handleOpenModal}
+        />
+        {showLoadMoreButton && (
+          <Button onClick={this.handleLoadMore} disabled={isLoading}>
+            {isLoading ? 'Loading...' : 'Load More'}
+          </Button>
+        )}
+      </Container>
     );
   }
 }

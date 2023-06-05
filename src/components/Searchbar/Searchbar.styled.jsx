@@ -41,16 +41,20 @@ export const SearchFormButton = styled.button`
   background-image: 80%;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.6;
+  opacity: 0.9;
+  background-color: #5665bb;
+  background-color: #6f7bbf;
+  background-color: #7e84aa;
+  background-color: #adafbb;
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
   &:hover {
-    background: blue;
+    background: #303f9f;
     opacity: 1;
   }
   &:hover svg {
-    background: blue;
+    background: #303f9f;
     opacity: 1;
   }
   & svg {
