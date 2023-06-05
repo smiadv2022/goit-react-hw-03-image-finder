@@ -12,23 +12,21 @@ export class Modal extends React.Component {
   }
 
   handleClick = e => {
-    if (e.code === 'Escape') this.props.onClose();
+    if (e.code === 'Escape') this.props.onModalClick();
   };
 
-  onOverlayClickClose = e => {
+  onModalOverlayClose = e => {
     if (e.currentTarget === e.target) {
-      this.props.onClose();
+      this.props.onModalClick();
     }
   };
 
   render() {
     const { url, alt } = this.props.image;
-    console.log('mmmmmmmmmm');
+
     return (
-      <Overlay onClick={this.onOverlayClickClose}>
+      <Overlay onClick={this.onModalOverlayClose}>
         <ModalImage>
-          {' '}
-          11111111111111
           <img src={url} alt={alt} />
         </ModalImage>
       </Overlay>

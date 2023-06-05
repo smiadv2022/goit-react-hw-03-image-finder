@@ -16,7 +16,7 @@ export class App extends React.Component {
     images: [],
     error: null,
     isLoading: false,
-    largeImage: {},
+    modalImage: {},
     showModal: false,
   };
 
@@ -49,8 +49,8 @@ export class App extends React.Component {
   };
 
   handleOpenModal = image => {
-    const largeImage = { url: image.largeImageURL, alt: image.tags };
-    this.setState({ largeImage, showModal: true });
+    const modalImage = { url: image.largeImageURL, alt: image.tags };
+    this.setState({ modalImage, showModal: true });
   };
   handleCloseModal = () => {
     this.setState({ showModal: false });
@@ -64,7 +64,7 @@ export class App extends React.Component {
     const {
       images,
       showModal,
-      largeImage,
+      modalImage,
       page,
       totalPages,
       isLoading,
@@ -85,7 +85,7 @@ export class App extends React.Component {
           </Button>
         )}
         {showModal && (
-          <Modal image={largeImage} onClose={this.handleCloseModal} />
+          <Modal image={modalImage} onModalClick={this.handleCloseModal} />
         )}
         {error && <Message>{error}</Message>}
       </Container>
