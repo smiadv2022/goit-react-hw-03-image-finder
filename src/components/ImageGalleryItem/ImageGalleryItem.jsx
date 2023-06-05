@@ -1,9 +1,9 @@
 import { Item, Image } from './ImageGalleryItem.styled';
 
-export const ImageGalleryItem = ({ webformatURL, tags }) => {
+export const ImageGalleryItem = ({ webformatURL, tags, onClick }) => {
   return (
-    <Item>
-      <Image src={webformatURL} alt={tags} loading="txt" />
+    <Item onClick={onClick}>
+      <Image src={webformatURL} alt={tags} loading="lazy" />
     </Item>
   );
 };

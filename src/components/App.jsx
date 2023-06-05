@@ -1,9 +1,11 @@
 import React from 'react';
 import { Button } from './Button/Button.styled';
-import { Container } from './Styles.styled';
+import { Container, Message } from './Styles.styled';
 import { SearchbarForm } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { fetchGallery } from './Api/ApiGallery';
+import { Modal } from './Modal/Modal';
+// import { swal } from 'sweetalert';
 
 export class App extends React.Component {
   state = {
@@ -28,7 +30,7 @@ export class App extends React.Component {
         const response = await fetchGallery({ search, page, perPage });
 
         if (response.hits.length === 0) {
-          throw new Error(`Sorry, no photo from ${search}!`);
+          throw new Error(`Sorry, no photo from: "${search}!"`);
         }
         this.setState(prevState => ({
           images: [...prevState.images, ...response.hits],
@@ -48,9 +50,11 @@ export class App extends React.Component {
 
   handleOpenModal = image => {
     const largeImage = { url: image.largeImageURL, alt: image.tags };
-    this.setState({ largeImage });
+    this.setState({ largeImage, showModal: true });
   };
-
+  handleCloseModal = () => {
+    this.setState({ showModal: false });
+  };
   handleSearch = searchText => {
     this.setState({ search: searchText });
     this.setState({ images: [] });
@@ -59,15 +63,18 @@ export class App extends React.Component {
   render() {
     const {
       images,
-
+      showModal,
+      largeImage,
       page,
       totalPages,
       isLoading,
+      error,
     } = this.state;
     const showLoadMoreButton = images.length !== 0 && page < totalPages;
     return (
       <Container>
         <SearchbarForm onSubmit={this.handleSearch} />
+
         <ImageGallery
           images={this.state.images}
           handleOpenModal={this.handleOpenModal}
@@ -77,6 +84,10 @@ export class App extends React.Component {
             {isLoading ? 'Loading...' : 'Load More'}
           </Button>
         )}
+        {showModal && (
+          <Modal image={largeImage} onClose={this.handleCloseModal} />
+        )}
+        {error && <Message>{error}</Message>}
       </Container>
     );
   }
