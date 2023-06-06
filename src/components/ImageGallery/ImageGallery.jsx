@@ -5,7 +5,6 @@ import { GalleryList } from './ImageGallery.styled';
 export const ImageGallery = ({ images, handleOpenModal }) => {
   return (
     <GalleryList>
-      {/* {console.log('hhh', { images })} */}
       {images.map(image => (
         <ImageGalleryItem
           key={image.id}

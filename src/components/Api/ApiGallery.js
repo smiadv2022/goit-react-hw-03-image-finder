@@ -6,7 +6,7 @@ export async function fetchGallery({ search, page, perPage }) {
   const response = await fetch(
     `${BASE_URL}?q=${search}&page=${page}&key=${API_KEY}&image_type=photo&orientation=horizontal&per_page=${perPage}`
   );
-  // console.log('resp', response);
+
   if (response.ok) {
     return response.json();
   } else {

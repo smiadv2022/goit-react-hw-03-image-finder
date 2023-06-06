@@ -16,12 +16,10 @@ export class SearchbarForm extends React.Component {
   };
   handleChange = e => {
     this.setState({ searchText: e.target.value.toLowerCase() });
-    // console.log({ searchText: e.target.value.toLowerCase() });
   };
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.searchText.trim() === '') {
-      // console.log('Not///');
       return;
     }
     this.props.onSubmit(this.state.searchText);
