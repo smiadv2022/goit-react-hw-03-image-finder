@@ -23,7 +23,7 @@ export class App extends React.Component {
   async componentDidUpdate(_, prevState) {
     const { search, page, perPage } = this.state;
 
-    console.log('updcomp');
+    // console.log('updcomp');
     if (page !== prevState.page || search !== prevState.search) {
       this.setState({ isLoading: true });
       try {
@@ -58,7 +58,7 @@ export class App extends React.Component {
   handleSearch = searchText => {
     this.setState({ search: searchText });
     this.setState({ images: [] });
-    console.log('Appstate', searchText);
+    // console.log('Appstate', searchText);
   };
   render() {
     const {
